@@ -128,11 +128,11 @@ public class SquareSums {
 
     public static List<Integer> solve(int[][] graph) {
         boolean solved = false;
-        int i, j, k, n, vertex;
+        int i, k, n, vertex;
 
         n = graph.length;
 
-        ArrayList<Integer> index = sort(graph, n);
+        int[] index = sort(graph, n);
         graph = reindex(graph, index, n);
         List<Integer> answer = null;
         for (vertex = 0; vertex < n; vertex++) {
@@ -151,7 +151,7 @@ public class SquareSums {
                 solved = true;
             }
             for (i = 0; i < path.size(); i++) {
-                answer.add(index.get(path.get(i)));
+                answer.add(index[path.get(i)]);
             }
             if(solved) return answer;
         }
@@ -427,10 +427,10 @@ public class SquareSums {
         return new ArrayList<Integer>(reversed_path);
     }
 
-    private static ArrayList<Integer> sort(int[][] graph, int size) {
+    private static int[] sort(int[][] graph, int size) {
         int i;
         int j;
-        ArrayList<Integer> degree = new ArrayList<Integer>(size);
+        int[] degree = new int[size];
         for (i = 0; i < graph.length; i++) {
             int sum = 0;
             for (j = 0; j < graph[0].length; j++) {
@@ -438,36 +438,32 @@ public class SquareSums {
                     sum++;
                 }
             }
-            degree.add(sum);
+            degree[i] = sum;
         }
-        ArrayList<Integer> index = new ArrayList<>(size);
-        for (i = 0; i < degree.size(); i++) {
-            index.add(i);
+        int[] index = new int[size];
+        for (i = 0; i < size; i++) {
+            index[i] = i;
         }
 
-        for (i = 0; i < degree.size(); i++) {
-            for (j = i + 1; j < degree.size(); j++) {
-                if (degree.get(i) < degree.get(j)) {
-                    swap(index, i, j);
+        for (i = 0; i < size; i++) {
+            for (j = i + 1; j < size; j++) {
+                if (degree[i] < degree[j]) {
+                    index[i] = index[i] ^ index[j];
+                    index[j] = index[i] ^ index[j];
+                    index[i] = index[i] ^ index[j];
                 }
             }
         }
-        return new ArrayList<Integer>(index);
+        return index;
     }
 
-    private static void swap(ArrayList<Integer> index, int i, int j) {
-        Integer temp = index.get(i);
-        index.set(i, index.get(j));
-        index.set(j, temp);
-    }
-
-    private static int[][] reindex(int[][] graph, ArrayList<Integer> index, int size) {
+    private static int[][] reindex(int[][] graph, int[] index, int size) {
         int i, j;
         int[][] temp= Arrays.stream(graph).map(a ->  Arrays.copyOf(a, a.length)).toArray(int[][]::new);
 
         for (i = 0; i < size; i++) {
             for (j = 0; j < size; j++) {
-                temp[i][j] = graph[index.get(i)][index.get(j)];
+                temp[i][j] = graph[index[i]][index[j]];
             }
         }
         return temp;
