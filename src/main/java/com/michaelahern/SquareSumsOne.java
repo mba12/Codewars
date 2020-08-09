@@ -5,10 +5,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-public class SquareSums {
+public class SquareSumsOne {
 
     private static final int[] sqs = new int[60];
     static {
@@ -92,10 +91,17 @@ public class SquareSums {
         return matrix;
     }
 
+    private static int[][] matrix = null;
+    public static int[][] buildGraph(Set<Integer> squaresSet) {
+        if(matrix == null) {
+            matrix = buildMatrixGraph(1600, squaresSet);
+        }
+        return matrix;
+    }
+
     private static HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
     public static List<Integer> buildUpTo(int n) {
         // System.out.println(n );
-        if(n < 15 || (n > 17 && n < 23) || n == 24) return null;
         long start = System.currentTimeMillis();
 
         Set<Integer> squaresSet = setupSquareSet(n);
@@ -110,8 +116,8 @@ public class SquareSums {
             }
         }
 
-        int[][] distance = buildMatrixGraph(n, squaresSet);
-        List<Integer> answer = solve(distance);
+        int[][] distance = buildGraph(squaresSet);
+        List<Integer> answer = solve(distance, n);
 
         List<Integer> finalAnswer = null;
 
@@ -154,11 +160,9 @@ public class SquareSums {
     }
 
     private static int pathSize = 0;
-    public static List<Integer> solve(int[][] graph) {
+    public static List<Integer> solve(int[][] graph, int n) {
         boolean solved = false;
-        int i, k, n, vertex;
-
-        n = graph.length;
+        int i, k, vertex;
 
         neighbor = new int[n];
         int[] index = sort(graph, n);
@@ -172,11 +176,11 @@ public class SquareSums {
             Arrays.fill(path, 0);
             pathSize = 0;
             path[pathSize++] = vertex;
-            path = procedure_1(graph, path);
-            path = procedure_2(graph, path);
+            path = procedure_1(graph, path, n);
+            path = procedure_2(graph, path, n);
             k = pathSize;
-            if (k < n) { path = procedure_2b(graph, path); k = pathSize; }
-            if (k < n) { path = procedure_2c(graph, path); k = pathSize; }
+            if (k < n) { path = procedure_2b(graph, path, n); k = pathSize; }
+            if (k < n) { path = procedure_2c(graph, path, n); k = pathSize; }
             if (k < n) {
                 solved = false;
             } else {
@@ -199,19 +203,15 @@ public class SquareSums {
     private static long procedure_1_total = 0;
     private static long start = 0;
     private static long end = 0;
-    private static int[] procedure_1(int[][] graph, int[] path) {
+    private static int[] procedure_1(int[][] graph, int[] path, int n) {
         start = System.currentTimeMillis();
         int i, j, k;
-        int n = graph.length;
-        // List<Integer> neighbor = new ArrayList<>(n);
+
         ArrayList<Integer> next_neighbor = new ArrayList<>();
 
         int[] extended_path = new int[n]; extPathIdx = 0;
         int[] visited = new int[n];
 
-        // for (i = 0; i < n; i++) {
-        //     visited.add(0);
-        // }
         int present = 0;
         for (i = 0; i < pathSize; i++) {
             present = path[i];
@@ -219,7 +219,6 @@ public class SquareSums {
             extended_path[extPathIdx++]  = present;
         }
         for (k = 0; k < n; k++) {
-            // neighbor.clear();
             Arrays.fill(neighbor, 0);
             int neighborIdx = 0;
             for (i = 0; i < n; i++) {
@@ -260,10 +259,9 @@ public class SquareSums {
     }
 
     private static long procedure_2_total = 0;
-    private static int[] procedure_2(int[][] graph, int[] path) {
+    private static int[] procedure_2(int[][] graph, int[] path, int n) {
         start = System.currentTimeMillis();
         int i, j, k;
-        int n = graph.length;
         boolean quit = false;
         while (!quit) {
             int m = pathSize;
@@ -323,7 +321,7 @@ public class SquareSums {
                 pathSize = extended_path.size();
             }
             if (m < pathSize) {
-                path = procedure_1(graph, path);
+                path = procedure_1(graph, path, n);
             } else {
                 quit = true;
             }
@@ -333,10 +331,9 @@ public class SquareSums {
         return path;
     }
 
-    private static int[] procedure_2b(int[][] graph, int[] path)
+    private static int[] procedure_2b(int[][] graph, int[] path, int n)
     {
         int i, j, k, l, p;
-        int n = graph.length;
         boolean quit = false;
         while (!quit) {
             ArrayList<Integer> extended_path = new ArrayList<>(n);
@@ -460,8 +457,8 @@ public class SquareSums {
                 pathSize = extended_path.size();
             }
             if (m < pathSize) {
-                path = procedure_1(graph,path);
-                path = procedure_2(graph,path);
+                path = procedure_1(graph,path,n);
+                path = procedure_2(graph,path,n);
             } else {
                 quit = true;
             }
@@ -469,37 +466,37 @@ public class SquareSums {
         return path;
     }
 
-    private static int[] procedure_2c(int[][] graph, int[] path) {
+    private static int[] procedure_2c(int[][] graph, int[] path, int n) {
 
-        int[] reversed_path = new int[graph.length];
+        int[] reversed_path = new int[n];
         int index = 0;
         for (int i = pathSize - 1; i >= 0; i--) {
             reversed_path[index++] = path[i];
         }
-        reversed_path = procedure_2b(graph, reversed_path);
+        reversed_path = procedure_2b(graph, reversed_path, n);
         return reversed_path;
     }
 
-    private static int[] sort(int[][] graph, int size) {
+    private static int[] sort(int[][] graph, int n) {
         int i;
         int j;
-        int[] degree = new int[size];
-        for (i = 0; i < graph.length; i++) {
+        int[] degree = new int[n];
+        for (i = 0; i < n; i++) {
             int sum = 0;
-            for (j = 0; j < graph[0].length; j++) {
+            for (j = 0; j < n; j++) {
                 if (graph[i][j] == 1) {
                     sum++;
                 }
             }
             degree[i] = sum;
         }
-        int[] index = new int[size];
-        for (i = 0; i < size; i++) {
+        int[] index = new int[n];
+        for (i = 0; i < n; i++) {
             index[i] = i;
         }
 
-        for (i = 0; i < size; i++) {
-            for (j = i + 1; j < size; j++) {
+        for (i = 0; i < n; i++) {
+            for (j = i + 1; j < n; j++) {
                 if (degree[i] < degree[j]) {
                     index[i] = index[i] ^ index[j];
                     index[j] = index[i] ^ index[j];
@@ -510,12 +507,13 @@ public class SquareSums {
         return index;
     }
 
-    private static int[][] reindex(int[][] graph, int[] index, int size) {
+    private static int[][] reindex(int[][] graph, int[] index, int n) {
         int i, j;
-        int[][] temp= Arrays.stream(graph).map(a -> Arrays.copyOf(a, a.length)).toArray(int[][]::new);
+        // int[][] temp= Arrays.stream(graph).map(a -> Arrays.copyOf(a, a.length)).toArray(int[][]::new);
+        int[][] temp= new int[n][n];
 
-        for (i = 0; i < size; i++) {
-            for (j = 0; j < size; j++) {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
                 temp[i][j] = graph[index[i]][index[j]];
             }
         }
