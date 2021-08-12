@@ -2,16 +2,21 @@ package com.michaelahern;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class SquareSums {
 
-    private static final int[] sqs = new int[60];
-    static {
+    private static Set<Integer> perfectSquares = new HashSet<>();
+    public static Set<Integer> createPerfectSquares() {
+        int[] sqs = new int[57];
+        sqs[0] =    0;
+        sqs[1] =    1;
         sqs[2] =    4;
         sqs[3] =	9;
         sqs[4] =	16;
@@ -67,458 +72,150 @@ public class SquareSums {
         sqs[54] =	2916;
         sqs[55] =	3025;
         sqs[56] =	3136;
-        sqs[57] =	3249;
-        sqs[58] =	3364;
-        sqs[59] =	3481;
 
+        for(int i = 2; i < 57; i++) {
+            perfectSquares.add(sqs[i]);
+        }
+        return perfectSquares;
     }
 
-    public static int[][] buildMatrixGraph(int n, Set<Integer> squaresSet) {
+    private static int[][] GRAPH = new int[1601][];
 
-        int nextNumber = 0;
-        int[][] matrix = new int[n][n];
-        for(int i = 0; i < n; i++) {
-            List<Integer> row = new ArrayList<>();
-            for(int j = i; j < n; j++) {
-                if(i == j) continue;
-                nextNumber = (i+1) + (j+1);
-                if(squaresSet.contains(nextNumber)) {
-                    matrix[i][j] = 1;
-                    matrix[j][i] = 1;
+    static {
+        createMasterGraph(1601);
+    }
+
+    public static void createMasterGraph(int n) {
+        Set<Integer> perfectSquares = createPerfectSquares();
+
+        int nextNumber, count;
+        int[] adjNodes = new int[40];
+        for(int i = 1; i < n; i++) {
+            count = 0;
+            for(int j = 1; j <= n; j++) {
+                nextNumber = i + j;
+                if(perfectSquares.contains(nextNumber)) {
+                    adjNodes[count++] = j;
+                }
+            }
+            int[] part = Arrays.copyOfRange(adjNodes, 0, count);
+            GRAPH[i] = part;
+        }
+    }
+
+    public static int[] createGraph(int size) {
+        // will contain the index + 1 of all the edges.
+        int [] largestEdge = new int[size + 1];
+        int index = 0;
+        for(int i = 1; i <= size; i++) {
+            int[] row = GRAPH[i];
+            index = Arrays.binarySearch(row, size);
+            if(index > 0)
+                largestEdge[i] = index;
+            else
+                largestEdge[i] = -(index + 2);
+        }
+        return largestEdge;
+    }
+
+    public static Map<Integer, List<Integer>> buildKeySizeMap(int [] keysIndex, int size) {
+        // make a map with edge size as the key and a list of nodes with that size
+        Map<Integer, List<Integer>> keySizeToNodes = new HashMap<>();
+        for(int i = 1; i <= size; i++) {
+            List<Integer> list = keySizeToNodes.getOrDefault(keysIndex[i], new ArrayList<Integer>());
+            list.add(i);
+            keySizeToNodes.put(keysIndex[i], list);
+        }
+
+        return keySizeToNodes;
+    }
+
+    public static List<Integer> buildUpTo(int size) {
+        if(size < 15 || (size > 17 && size < 23) || size == 24) return null;
+
+        int[] largestEdgeIndexPerNode = createGraph(size);
+        // build a map with size, keys of that size
+        Map<Integer, List<Integer>> keySizeMap = buildKeySizeMap(largestEdgeIndexPerNode, size);
+        List<Integer> rootNodes;
+        // find the smallest key size
+        for(int i = 1; i <= keySizeMap.size(); i++) {
+            if(keySizeMap.containsKey(i)) {
+                rootNodes = keySizeMap.get(i);
+                for(int root : rootNodes) {
+                    Set<Integer> visited = new HashSet<>();
+                    Stack<Integer> result = new Stack<>();
+                    int depth = 0;
+                    dfs(root, visited, result, size, largestEdgeIndexPerNode, depth + 1);
+                    if(result.size() == size)
+                        return result;
                 }
             }
         }
 
-        return matrix;
-    }
-
-    private static HashMap<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-    public static List<Integer> buildUpTo(int n) {
-        // System.out.println(n );
-        if(n < 15 || (n > 17 && n < 23) || n == 24) return null;
-        long start = System.currentTimeMillis();
-
-        Set<Integer> squaresSet = setupSquareSet(n);
-        if(map.containsKey(n - 1)) {
-            List<Integer> previous = map.get(n - 1);
-            if(previous != null) {
-                List<Integer> answer = checkPrevious(n, previous, squaresSet);
-                if(answer != null) {
-                    // System.out.println("HIT: " + n );
-                    return answer;
-                }
-            }
-        }
-
-        int[][] distance = buildMatrixGraph(n, squaresSet);
-        List<Integer> answer = solve(distance);
-
-        List<Integer> finalAnswer = null;
-
-        if(answer != null && answer.size() > 0) {
-            finalAnswer = new ArrayList<>();
-            for(int i=0; i < n; i++) {
-                finalAnswer.add(answer.get(i) + 1);
-            }
-        }
-        map.put(n, finalAnswer);
-        long end = System.currentTimeMillis();
-        // System.out.println( (end - start) + " :: " + procedure_1_total + " :: " + procedure_2_total);
-        return finalAnswer;
-    }
-
-    public static List<Integer> checkPrevious(int n, List<Integer> answer, Set<Integer> squares) {
-
-        int x = answer.get(0);
-        for(int i=1; i < answer.size(); i++) {
-            int y = answer.get(i);
-            if(squares.contains(x + n) && squares.contains(y + n)) {
-                answer.add(i, n);
-                return answer;
-            }
-            x = y;
-        }
         return null;
     }
 
-    public static Set<Integer> setupSquareSet(int n) {
-        int largestSquare = n + n - 1;
-        Set<Integer> squares = new HashSet<>();
-        int c = 2;
-        while(sqs[c] <= largestSquare) {
-            squares.add(sqs[c]);
-            c++;
-        }
-        squares.remove(sqs[c]);
-        return squares;
-    }
-
-    private static int pathSize = 0;
-    public static List<Integer> solve(int[][] graph) {
-        boolean solved = false;
-        int i, k, n, vertex;
-
-        n = graph.length;
-
-        neighbor = new int[n];
-        int[] index = sort(graph, n);
-        graph = reindex(graph, index, n);
-        List<Integer> answer = null;
-        int[] path = new int[n];
-        for (vertex = 0; vertex < n; vertex++) {
-
-            answer = new ArrayList<>();
-            // ArrayList<Integer> path = new ArrayList<>(n);
-            Arrays.fill(path, 0);
-            pathSize = 0;
-            path[pathSize++] = vertex;
-            path = procedure_1(graph, path);
-            path = procedure_2(graph, path);
-            k = pathSize;
-            if (k < n) { path = procedure_2b(graph, path); k = pathSize; }
-            if (k < n) { path = procedure_2c(graph, path); k = pathSize; }
-            if (k < n) {
-                solved = false;
-            } else {
-                solved = true;
-            }
-            for (i = 0; i < pathSize; i++) {
-                answer.add(index[path[i]]);
-            }
-            if(solved) return answer;
-        }
-
-        if(solved)
-            return answer;
-        else
-            return null;
-
-    }
-    private static int extPathIdx = 0;
-    private static int[] neighbor;
-    private static long procedure_1_total = 0;
-    private static long start = 0;
-    private static long end = 0;
-    private static int[] procedure_1(int[][] graph, int[] path) {
-        start = System.currentTimeMillis();
-        int i, j, k;
-        int n = graph.length;
-        // List<Integer> neighbor = new ArrayList<>(n);
-        ArrayList<Integer> next_neighbor = new ArrayList<>();
-
-        int[] extended_path = new int[n]; extPathIdx = 0;
-        int[] visited = new int[n];
-
-        // for (i = 0; i < n; i++) {
-        //     visited.add(0);
-        // }
-        int present = 0;
-        for (i = 0; i < pathSize; i++) {
-            present = path[i];
-            visited[present] = 1;
-            extended_path[extPathIdx++]  = present;
-        }
-        for (k = 0; k < n; k++) {
-            // neighbor.clear();
-            Arrays.fill(neighbor, 0);
-            int neighborIdx = 0;
-            for (i = 0; i < n; i++) {
-                if (graph[present][i] == 1 && visited[i] == 0) {
-                    neighbor[neighborIdx++] = i;
-                }
-            }
-            if (neighborIdx > 0) {
-                int choice = neighbor[0];
-                int minimum = n;
-                for (i = 0; i < neighborIdx; i++) {
-                    next_neighbor.clear();
-                    for (j = 0; j < n; j++) {
-                        if (graph[neighbor[i]][j] == 1 && visited[j] == 0) {
-                            next_neighbor.add(j);
-                        }
-                    }
-                    int eta = next_neighbor.size();
-                    if (eta < minimum) {
-                        choice = neighbor[i];
-                        minimum = eta;
-                    }
-                }
-                present = choice;
-                visited[present] =  1;
-                extended_path[extPathIdx++] = present;
-                if(extPathIdx > n) {
-                    System.out.println("N: " + n + " EP: " + extPathIdx);
-                }
-            } else {
-                break;
-            }
-        }
-        pathSize = extPathIdx;
-        end = System.currentTimeMillis();
-        procedure_1_total += (end - start) ;
-        return extended_path;
-    }
-
-    private static long procedure_2_total = 0;
-    private static int[] procedure_2(int[][] graph, int[] path) {
-        start = System.currentTimeMillis();
-        int i, j, k;
-        int n = graph.length;
-        boolean quit = false;
-        while (!quit) {
-            int m = pathSize;
-            int inlet = -1;
-            int outlet = -1;
-            ArrayList<Integer> neighbor = new ArrayList<>(n);
-            for (i = 0; i < pathSize; i++) {
-                if (graph[path[m - 1]][path[i]] == 1) {
-                    neighbor.add(i);
-                }
-            }
-            ArrayList<Integer> unvisited = new ArrayList<>(n);
-            for (i = 0; i < n; i++) {
-                boolean outside = true;
-                for (j = 0; j < pathSize; j++) {
-                    if (i == path[j]) {
-                        outside = false;
-                    }
-                }
-                if (outside) {
-                    unvisited.add(i);
-                }
-            }
-            if ((!unvisited.isEmpty()) && (!neighbor.isEmpty())) {
-                int maximum = 0;
-                for (i = 0; i < neighbor.size(); i++) {
-                    for (j = 0; j < unvisited.size(); j++) {
-                        if (graph[path[neighbor.get(i) + 1]][unvisited.get(j)] == 1) {
-                            ArrayList<Integer> next_neighbor = new ArrayList<Integer>();
-                            for (k = 0; k < unvisited.size(); k++) {
-                                if (graph[unvisited.get(j)][unvisited.get(k)] == 1) {
-                                    next_neighbor.add(unvisited.get(k));
-                                }
-                            }
-                            int eta = next_neighbor.size();
-                            if (eta >= maximum) {
-                                inlet = neighbor.get(i);
-                                outlet = unvisited.get(j);
-                                maximum = eta;
-                            }
-                        }
-                    }
-                }
-            }
-            ArrayList<Integer> extended_path = new ArrayList<>(n);
-            if (inlet != -1 && outlet != -1) {
-                for (i = 0; i <= inlet; i++) {
-                    extended_path.add(path[i]);
-                }
-                for (i = pathSize - 1; i > inlet; i--) {
-                    extended_path.add(path[i]);
-                }
-                extended_path.add(outlet);
-            }
-            if (!extended_path.isEmpty()) {
-                path = extended_path.stream().mapToInt(Integer::intValue).toArray();
-                pathSize = extended_path.size();
-            }
-            if (m < pathSize) {
-                path = procedure_1(graph, path);
-            } else {
-                quit = true;
-            }
-        }
-        end = System.currentTimeMillis();
-        procedure_2_total += (end - start) ;
-        return path;
-    }
-
-    private static int[] procedure_2b(int[][] graph, int[] path)
+    // Function to sort by column
+    public static void sortbyColumn(int arr[][], int col)
     {
-        int i, j, k, l, p;
-        int n = graph.length;
-        boolean quit = false;
-        while (!quit) {
-            ArrayList<Integer> extended_path = new ArrayList<>(n);
-            int m = pathSize;
-            ArrayList<Integer> unvisited = new ArrayList<>(n);
-            for (i = 0; i < n; i++) {
-                boolean outside = true;
-                for (j = 0; j < pathSize; j++) {
-                    if (i == path[j]) {
-                        outside = false;
-                    }
-                }
-                if (outside) {
-                    unvisited.add(i);
-                }
+        // Using built-in sort function Arrays.sort
+        Arrays.sort(arr, new Comparator<int[]>() {
+
+            @Override
+            // Compare values according to columns
+            public int compare(final int[] entry1,
+                               final int[] entry2) {
+
+                // sorting in descending order
+                if (entry1[col] > entry2[col])
+                    return 1;
+                else
+                    return -1;
             }
-            boolean big_check = false;
-            for (i = 0; i < pathSize; i++) {
-                for (j = 0; j < unvisited.size(); j++) {
-                    if (graph[unvisited.get(j)][path[i]] == 1) {
-                        ArrayList<Integer> temp_path = new ArrayList<>(n);
-                        temp_path.add(unvisited.get(j));
-                        ArrayList<Integer> temp_extended_path = new ArrayList<>(n);
-                        ArrayList<Integer> temp_visited = new ArrayList<>(n);
-                        for (l = 0; l < n; l++) {
-                            temp_visited.add(0);
-                        }
-                        int present = 0;
-                        for (l = 0; l < temp_path.size(); l++) {
-                            present = temp_path.get(l);
-                            temp_visited.set(present, 1);
-                            temp_extended_path.add(present);
-                        }
-                        for (l = 0; l < n; l++) {
-                            boolean unfound = true;
-                            for (k = 0; k < unvisited.size(); k++) {
-                                if (l == unvisited.get(k)) {
-                                    unfound = false;
-                                }
-                            }
-                            if (unfound) {
-                                temp_visited.set(l, 1);
-                            }
-                        }
-                        for (l = 0; l < n; l++) {
-                            ArrayList<Integer> neighbor = new ArrayList<>(n);
-                            for (l = 0; l < n; l++) {
-                                if (graph[present][l] == 1 && temp_visited.get(l) == 0) {
-                                    neighbor.add(l);
-                                }
-                            }
-                            if (!neighbor.isEmpty()) {
-                                int choice = neighbor.get(0);
-                                int minimum = n;
-                                for (l = 0; l < neighbor.size(); l++) {
-                                    ArrayList<Integer> next_neighbor = new ArrayList<>(n);
-                                    for (k = 0; k < n; k++) {
-                                        if (graph[neighbor.get(l)][k] == 1 && temp_visited.get(k) == 0) {
-                                            next_neighbor.add(k);
-                                        }
-                                    }
-                                    int eta = next_neighbor.size();
-                                    if (eta < minimum) {
-                                        choice = neighbor.get(l);
-                                        minimum = eta;
-                                    }
-                                }
-                                present = choice;
-                                temp_visited.set(present, 1);
-                                temp_extended_path.add(present);
-                            } else {
-                                break;
-                            }
-                        }
-                        int last_vertex = temp_extended_path.get(temp_extended_path.size() - 1);
-                        int vj = 0;
-                        boolean check = false;
-                        while (!check && !temp_extended_path.isEmpty()) {
-                            for (p = pathSize - 2; p > i; p--) {
-                                if (graph[path[p]][last_vertex] == 1 && graph[path[i + 1]][path[p + 1]] == 1) {
-                                    check = true;
-                                    vj = p;
-                                    break;
-                                }
-                            }
-                            if (!check  && !temp_extended_path.isEmpty()) {
-                                Integer last = temp_extended_path.remove(temp_extended_path.size() - 1);
-                                if (temp_extended_path.isEmpty()) {
-                                    last_vertex = last;
-                                } else {
-                                    last_vertex = temp_extended_path.get(temp_extended_path.size() - 1);
-                                }
-                            }
-                        }
-                        if (check) {
-                            ArrayList<Integer> temp = new ArrayList<Integer>(n);
-                            for (p = 0; p <= i; p++) {
-                                temp.add(path[p]);
-                            }
-                            for (p = 0; p < temp_extended_path.size(); p++) {
-                                temp.add(temp_extended_path.get(p));
-                            }
-                            for (p = vj; p > i; p--) {
-                                temp.add(path[p]);
-                            }
-                            for (p = vj + 1; p < pathSize; p++) {
-                                temp.add(path[p]);
-                            }
-                            temp_extended_path = new ArrayList<>(temp);
-                            big_check = true;
-                            extended_path = new ArrayList<>(temp_extended_path);
-                        }
-                    }
-                }
-                if (big_check) {
-                    break;
-                }
-            }
-            if (!extended_path.isEmpty()) {
-                path = extended_path.stream().mapToInt(Integer::intValue).toArray();
-                pathSize = extended_path.size();
-            }
-            if (m < pathSize) {
-                path = procedure_1(graph,path);
-                path = procedure_2(graph,path);
+        });
+
+    }
+
+    private static Stack<Integer> dfs(int rootNode, Set<Integer> visited,
+                                      Stack<Integer> result, int size, int[] numberOfEdgesPerNode, int depth) {
+
+        visited.add(rootNode);
+        result.push(rootNode);
+        if(visited.size() == size) {
+            return result;
+        }
+
+//        System.out.println(depth + " :: " +
+//                           Arrays.toString(result.toArray()));
+//        System.out.println(depth + " :: " +
+//                           Arrays.toString(visited.toArray()));
+
+        int[] adjList = GRAPH[rootNode];
+        int[][] adjListSize = new int[numberOfEdgesPerNode[rootNode]+1][];
+        for(int i = 0; i < numberOfEdgesPerNode[rootNode]+1; i++) {
+            int[] row = new int[2];
+            if (visited.contains(adjList[i])) {
+                row[0] = adjList[i];
+                row[1] = -1;
             } else {
-                quit = true;
+                row[0] = adjList[i];
+                row[1] = numberOfEdgesPerNode[adjList[i]];
             }
+            adjListSize[i] = row;
         }
-        return path;
-    }
+        if(adjListSize.length > 1)
+            sortbyColumn(adjListSize, 1);
 
-    private static int[] procedure_2c(int[][] graph, int[] path) {
-
-        int[] reversed_path = new int[graph.length];
-        int index = 0;
-        for (int i = pathSize - 1; i >= 0; i--) {
-            reversed_path[index++] = path[i];
+        for(int i = 0; i < adjListSize.length; i++) {
+            if(adjListSize[i][1] == -1) continue;
+            result = dfs(adjListSize[i][0], visited, result, size, numberOfEdgesPerNode, depth + 1);
+            if(result.size() == size)
+                return result;
         }
-        reversed_path = procedure_2b(graph, reversed_path);
-        return reversed_path;
-    }
-
-    private static int[] sort(int[][] graph, int size) {
-        int i;
-        int j;
-        int[] degree = new int[size];
-        for (i = 0; i < graph.length; i++) {
-            int sum = 0;
-            for (j = 0; j < graph[0].length; j++) {
-                if (graph[i][j] == 1) {
-                    sum++;
-                }
-            }
-            degree[i] = sum;
+        if (!result.isEmpty()) {
+            result.pop();
+            visited.remove(rootNode);
         }
-        int[] index = new int[size];
-        for (i = 0; i < size; i++) {
-            index[i] = i;
-        }
-
-        for (i = 0; i < size; i++) {
-            for (j = i + 1; j < size; j++) {
-                if (degree[i] < degree[j]) {
-                    index[i] = index[i] ^ index[j];
-                    index[j] = index[i] ^ index[j];
-                    index[i] = index[i] ^ index[j];
-                }
-            }
-        }
-        return index;
-    }
-
-    private static int[][] reindex(int[][] graph, int[] index, int size) {
-        int i, j;
-        int[][] temp= Arrays.stream(graph).map(a -> Arrays.copyOf(a, a.length)).toArray(int[][]::new);
-
-        for (i = 0; i < size; i++) {
-            for (j = 0; j < size; j++) {
-                temp[i][j] = graph[index[i]][index[j]];
-            }
-        }
-        return temp;
+        return result;
     }
 }

@@ -6,13 +6,13 @@ import java.util.List;
 public class LongestCommonSubsequence {
 
 
-    public String longestCommonSubsequence(String x, String y) {
-        x = " " + x;
-        y = " " + y;
-        int lenA = x.length();
-        int lenB = y.length();
-        char[] charA = x.toCharArray();
-        char[] charB = y.toCharArray();
+    public String lcs(String a, String b) {
+        a = " " + a;
+        b = " " + b;
+        int lenA = a.length();
+        int lenB = b.length();
+        char[] charA = a.toCharArray();
+        char[] charB = b.toCharArray();
 
         int[][] matrix = new int[lenB][lenA];
 
@@ -44,10 +44,12 @@ public class LongestCommonSubsequence {
             }
             checkCol++;
 
-            if(x.charAt(checkCol) == y.charAt(checkRow))
-                answer.add(x.charAt(checkCol));
+            if(a.charAt(checkCol) == b.charAt(checkRow))
+                answer.add(a.charAt(checkCol));
 
             currentValue--;
+            checkCol--;
+            checkRow--;
         }
 
         StringBuilder str = new StringBuilder();

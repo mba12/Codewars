@@ -1,8 +1,9 @@
 package com.michaelahern;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Hello world!
@@ -10,11 +11,10 @@ import java.util.Random;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main( String[] args ) throws IOException {
+       //  System.out.println( "Hello World!" );
 
-        Kata kata = new Kata();
+     //    Kata kata = new Kata();
 
         // long n = Kata.nextBiggerNumber(822418533);
 //        List<Long> list = Kata.sumDigPow(1, 500);
@@ -248,7 +248,7 @@ public class App
         // SquareRoot.integerSquareRoot("5");
       // System.out.println(SquareRoot.longDivision("1212", "6"));
 
-        MathEvaluator eval = new MathEvaluator();
+    //     MathEvaluator eval = new MathEvaluator();
         /*
 
         /-
@@ -289,7 +289,7 @@ expected:<-12042.760875> but was:<-155.52526639344262>
        // System.out.println(eval.calculate("123.45*(678.90 / (-2.5+ 11.5)-(80 -19) *33.25) / 20 + 11"));
         // System.out.println(eval.calculate("(123.45*(678.90 / (-2.5+ 11.5)-(((80 -(19))) *33.25)) / 20) - (123.45*(678.90 / (-2.5+ 11.5)-(((80 -(19))) *33.25)) / 20) + (13 - 2)/ -(-11)"));
 
-        Fibonacci fib = new Fibonacci();
+    //    Fibonacci fib = new Fibonacci();
 
 //        long start = System.currentTimeMillis();
 //        BigInteger y = fib.fib(new BigInteger("2000000"));
@@ -512,6 +512,7 @@ int[][] answer5 = {{1,3}, {5,3}, {7,5}, {7,1}, {2,1}, {5,4}};
 //	at BulbGrid.getTour(BulbGrid.java:218)
 //	at BulbGrid.switchBulbs(BulbGrid.java:181)
 */
+        /*
         String test15 =
                 "+----------------+\n" +
                 "|B.............B.|\n" +
@@ -531,8 +532,9 @@ int[][] answer5 = {{1,3}, {5,3}, {7,5}, {7,1}, {2,1}, {5,4}};
                 "|................|\n" +
                 "|B..............B|\n" +
                 "+----------------+";
-
+*/
         // test 16 invalid solution  Your solution: [[3,2],[1,3],[5,3]]  Bulbs at [3,2] and [1,3] cannot be linked togrther
+        /*
         String test16 = "+--------+\n" +
                 "|........|\n" +
                 "|...B....|\n" +
@@ -557,10 +559,10 @@ int[][] answer5 = {{1,3}, {5,3}, {7,5}, {7,1}, {2,1}, {5,4}};
                         "+--------+";
 
         int[][] answer5 = {{1,3}, {5,3}, {7,5}, {7,1}, {2,1}, {5,4}};
-
+*/
 // String[] tests = {test11, test12, test15, test16};
 // String[] tests = {test7};
-        String[] tests = {test5};
+  //       String[] tests = {test5};
 
 
 /*
@@ -592,14 +594,13 @@ for(String s : tests) {
 
         // int[] testNs = {5, 15, 16, 23, 37, 1600, 92};
 
-  /*
+/*
         int[] testsFinal = {
                 5
                 ,15
                 ,16
                 ,23
                 ,37
-                ,1600
                 ,60
                 ,58
                 ,88
@@ -609,6 +610,7 @@ for(String s : tests) {
                 ,135
                 ,94
                 ,67
+                ,1600
                 ,55
                 ,77
                 ,82
@@ -1098,36 +1100,62 @@ for(String s : tests) {
                 ,190
 
                 };
+*/
+        // int[] testSort = {25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55};
+       // int[] testSort = {5,15,16,23,37};
 
-        int[] testSort = {25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55};
+        // SquareSums.createGraphJSON(1600);
+       // List<Integer> result = SquareSumsN5.buildUpTo(15);
+      // List<Integer> result = SquareSums.buildUpTo(15);
+      //  System.out.println(result);
 
+        /*
         Random r = new Random();
         int min = 4; int max = 1600;
         int[] is = new int[501];
         for(int i = 0; i < 501; i++)
             is[i] = r.nextInt((max - min) + 1) + min;
         int[] testNs = {15};
-        long start1 = System.currentTimeMillis();
-        int failCount = 0;
-        for(int i = 0; i < testsFinal.length; i++) {
-            List<Integer> answer = SquareSums.buildUpTo( testsFinal[i] );
-            if(answer == null) failCount++;
+*/
 
-            if(answer == null)
-                System.out.println("No answer");
-            else
-                System.out.println(Arrays.toString(answer.toArray()));
-
-
-        }
-        long endtime = System.currentTimeMillis();
-        System.out.println("Total: " + (endtime - start1));
-        System.out.println("FailCount: " + failCount);
+//        long start1 = System.currentTimeMillis();
+//        int failCount = 0; int goodCount = 0;
+//        for(int i = 0; i < 12; i++) {
+//        // for(int i = 3; i < 1600; i++) {
+//        // for(int i = 3; i < 1600; i++) {
+//            List<Integer> answer = SquareSums.buildUpTo( testsFinal[i] );
+//            // List<Integer> answer = SquareSumsDFS.SquareSumsSolve( testsFinal[i] );
+//            //List<Integer> answer = SquareSums.buildUpTo( i );
+//            // List<Hamiltonian.Node> answer = Hamiltonian.solve(i);
+//            // List<Hamiltonian.Node> answer = Hamiltonian.solve( 20);
+//            if(answer == null)
+//                failCount++;
+//            else
+//                goodCount++;
+//
+//            if(answer == null)
+//                System.out.println("No answer: " + testsFinal[i]);
+//            // else
+//            //    System.out.println(Arrays.toString(answer.toArray()));
+////            No answer: 5
+////            No answer: 19
+////            No answer: 11
+////            No answer: 14
+////            No answer: 13
+////            No answer: 21
+//
+//        }
+//        long endtime = System.currentTimeMillis();
+//        System.out.println("Total time: " + (endtime - start1));
+//        System.out.println("FailCount: " + failCount);
+//        System.out.println("GoodCount: " + goodCount);
 
         // int[] arr1 = {1,1,1,1,1};
         // int[] arr2 = {1,0,1};
 
 
+
+        /*
         int[] arr1 = {1,0,0,1,1,1,1,0,1,0,1,0,1,0,1,0,0,1,1,0,0,1,0,1,0,1,1,1,1,0,1,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,0,1,1,0,0,0,0,1,0,1,1,1,0,1,1,0,0,1,0,1,1,0,0,1,0,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,0,1,0,1,1,0,1,1,1,0,1,1,1,1,1,0,0,1,0,0,1,1,1,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,1,1,1,1,1,0,1,0,1,0,0,0,0,1,0,1,1,1,0,0,0,1,1,0,0,1,1,1,0,0,0,0,1,0,0,1,0,0,1,1,0,0,0,1,1,0,1,0,1,0,1,0,0,0,1,0,0,1,1,0,1,1,1,1,1,0,0,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,1,1,0,0,0,1,0,0,1,1,0,0,0,1,0,0,1,1,0,0,0,0,1,0,0,1,1,1,1,1,1,1,0,1,1,0,1,1,1,0,0,0,1,0,1,1,0,1,0,0,1,0,1,0,1,0,1,1,0,0,1,0,1,0,1,0,1,0,0,1,1,0,1,1,0,0,0,1,0,1,0,0,1,1,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,1,0,1,1,1,1,0,0,0,0,0,1,0,0,0,1,1,0,1,1,1,0,1,0,1,0,0,1,0,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,0,1,1,1,0,0,1,1,0,0,0,1,0,0,0,0,0,0,1,0,1,1,1,1,1,0,0,0,1,1,0,1,1,0,1,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,1,1,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,1,1,0,1,0,1,1,0,1,1,0,0,0,1,0,1,1,1,0,0,0,1,1,0,1,1,0,0,0,1,0,0,1,0,0,1,0,1,1,0,0,1,0,0,1,0,1,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,1,1,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,1,0,0,0,1,0,0,0,1,1,0,0,0,1,1,0,0,0,1,1,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,0,1,1,0,1,0,0,1,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,0,0,0,1,1,0,1,1,0,1,1,1,1,1,0,0,0,1,1,0,1,0,1,0,0,0,0,0,0,1,0,1,0,0,1,1,0,0,0,1,1,0,1,0,0,0,1,1,1,0,0,0,0,1,0,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,0,0,1,1,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,1,1,1,1,1,0,1,1,0,0,1,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0,1,1,1,0,1,0,1,1,1,0,0,1,0,1,1,0,0,1,0,1,0,0,1,1,1,0,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,1,0,1,0,1,0,1,1,0,0,0,1,1,1,0,0,0,0,1,1,0,0,1,1,1,0,1,0,1,1,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,1,0,0,1,0,0,0,0,1,1,1,1,0,0,1,1,0,1,0,0,1,1,1,1,1,1,0,0,1,0,1,1,0,1,0,0,1,0,0,1,1,1,1,1,0,1,0,0,1,1,0,1,1,0,1,1,0,1,1,1,0,0,1,0,1,1,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,1,0,0,1,0,1,1,0,0,0,0,1,1,0};
         int[] arr2 = {1,1,0,1,0,0,1,1,0,1,1,0,0,0,1,0,1,1,1,1,1,1,0,1,1,0,0,1,1,0,1,0,0,1,1,0,1,1,0,0,0,1,0,1,1,0,0,1,1,1,0,1,1,0,1,0,1,0,0,0,0,1,1,0,1,1,1,0,0,0,1,1,1,0,0,1,0,1,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,1,1,1,1,1,1,0,0,1,1,0,1,1,0,0,1,1,0,0,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,1,1,0,0,0,1,0,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,0,0,0,0,1,1,0,0,1,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,1,0,1,1,0,1,0,0,0,1,1,1,0,1,0,1,1,1,1,0,0,0,0,1,0,1,0,1,1,1,0,1,1,1,1,0,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,1,1,0,0,1,0,1,1,1,1,1,0,0,0,1,1,0,1,1,0,1,0,0,0,0,1,0,1,0,0,0,1,0,0,1,1,0,1,0,1,0,0,1,0,1,0,0,1,0,1,0,0,1,1,1,1,0,1,1,1,1,1,0,0,1,0,0,0,0,0,1,1,1,0,1,1,1,1,1,0,0,0,0,1,0,1,1,1,0,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,0,1,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,1,1,0,1,0,1,1,0,1,1,1,1,1,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,0,0,0,1,0,0,1,0,1,1,1,0,0,0,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,1,1,0,0,0,1,1,1,0,1,1,1,1,0,1,1,0,0,0,0,0,0,0,1,0,1,1,0,0,1,0,1,1,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,0,1,0,1,0,1,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,1,1,0,0,1,1,1,1,0,1,1,0,0,1,0,1,1,1,0,1,1,0,0,0,1,1,1,0,1,1,0,0,1,1,1,1,0,1,0,0,0,0,1,1,0,1,0,1,1,1,0,0,0,0,1,0,1,0,1,1,0,1,1,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,0,0,1,0,1,1,1,0,1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,1,1,0,1,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,1,0,1,0,0,1,1,1,1,1,0,1,1,0,0,0,1,0,0,0,1,0,1,1,1,0,0,1,1,0,0,1,1,0,0,1,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,1,0,1,0,1,1,0,1,0,0,0,1,0,0,1,1,0,0,1,1,0,1,1,0,0,0,1,0,1,0,0,1,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,1,0,1,1,0,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,1,0,1,0,1,0,0,1,1,0,1,1,0,1,0,1,0,1,0,0,1,0,1,1,1,1,1,1,1,0,0,1,1,0,1,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,1,0,0,1,1,1,0,1,1,1,0,0,0,0,1,0,1,0,0,0,0,0,1,1,0,1,0,1,0,1,1,0,0,0,0,0,0,0,1,0,1,0,0,1,0,0,1,0,1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,0,1,0,0,1,1,0,1,1,0,1,1,1,0,1,0,1,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,1,1,1,0,0,1,1,1,1,0,0,1,0,0,1,0,0,0,0,1,1};
 
@@ -1140,7 +1168,7 @@ for(String s : tests) {
         int[][] points = {{559,511},{932,618},{-623,-443},{431,91},{838,-127},{773,-917},{-500,-910},{830,-417},{-870,73},{-864,-600},{450,535},{-479,-370},{856,573},{-549,369},{529,-462},{-839,-856},{-515,-447},{652,197},{-83,345},{-69,423},{310,-737},{78,-201},{443,958},{-311,988},{-477,30},{-376,-153},{-272,451},{322,-125},{-114,-214},{495,33},{371,-533},{-393,-224},{-405,-633},{-693,297},{504,210},{-427,-231},{315,27},{991,322},{811,-746},{252,373},{-737,-867},{-137,130},{507,380},{100,-638},{-296,700},{341,671},{-944,982},{937,-440},{40,-929},{-334,60},{-722,-92},{-35,-852},{25,-495},{185,671},{149,-452}};
         // int[][] points = {{559,511},{932,618}};
         System.out.println(lc.minTimeToVisitAllPoints(points));
-*/
+
 
         MyHashMap map = new MyHashMap();
         map.put(1,1);
@@ -1151,7 +1179,414 @@ for(String s : tests) {
         System.out.println(map.get(2));
         map.remove(2);
         System.out.println(map.get(2));
+*/
+     //   LeetCode lc = new LeetCode();
+        // int[] arr = {1,2,2,6,6,6,6,7,10};
+        // int[] arr = {1,1,2,2,3,3,3,3};
+        // int[][] moves = {{0,0},{1,1},{0,1},{0,2},{1,0},{2,0}};
+        // int[][] moves = {{1,0},{2,0},{0,1}};
+        // System.out.println(lc.tictactoe(moves));
 
+        // String s = "codeleet"; int[] indices = {4,5,6,7,0,2,1,3};
+        // System.out.println(lc.restoreString(s, indices));
+
+        // int[] arr = {-2,1,-3,4,-1,2,1,-5,4};
+        // System.out.println(lc.maxSubArray2(arr));
+
+     //   System.out.println(lc.repeatedStringMatch("a", "aa"));
+
+//        TreeNode root = new TreeNode(1);
+//        TreeNode l2 = new TreeNode(2);
+//        TreeNode l3 = new TreeNode(3);
+//        TreeNode l4 = new TreeNode(4);
+//
+//        TreeNode r2 = new TreeNode(2);
+//        TreeNode r3 = new TreeNode(3);
+//        TreeNode r4 = new TreeNode(4);
+//
+//        root.left = l2;
+//        root.right = r2;
+//        // l2.left = l3;
+//        l2.right = l3;
+//        // r2.left = r4;
+//        r2.right = r3;
+//
+//        System.out.println(lc.isSymmetric(root));
+
+//        System.out.println("\n Left: ");
+//        lc.printInorderLeft(l2);
+//        System.out.println("\n Right: ");
+//        lc.printInorderRight(r2);
+
+        /*
+        LeetCode lc = new LeetCode();
+        System.out.println("S: " + lc.repeatedStringMatch("aaaaaaaaaaaaaaaaaaaaa",
+                "bacbacbac"));
+*/
+
+// ["MaxStack","push","popMax","push","push","push","pop","peekMax","push","pop","pop","push","peekMax","peekMax","push","peekMax","push","peekMax"]
+// [[],[-2],[],[-45],[-82],[29],[],[],[40],[],[],[66],[],[],[-61],[],[98],[]]
+   //["MaxStack","push[69]","top","popMax","push[-92]","pop","push[-83]","peekMax","push[-26]","pop","push[69]","pop","pop","push[92]","top","popMax","push[74]","push[-37]","pop","push[-86]","push[29]"]
+
+     //[[],[69],[],[],[-92],[],[-83],[],[-26],[],[69],[],[],[92],[],[],[74],[-37],[],[-86],[29]]
+
+     //[null,null,69,69,null,-92,null,0,null,-26,null,69,-83,null,92,92,null,null,-37,null,null]
+     //[null,null,69,69,null,-92,null,-83,null,-26,null,69,-83,null,92,92,null,null,-37,null,null]
+
+    // ["MaxStack","push[-23]","peekMax","push[-74]","popMax","push[-4]","push[20]","push[68]","top","push[83]","peekMax","push[73]","popMax","peekMax"]
+    // [[],[-23],[],[-74],[],[-4],[20],[68],[],[83],[],[73],[],[]]
+
+
+// ["MaxStack","push","peekMax","push","popMax","push","push","push","top","push","peekMax","push","popMax","peekMax"]
+// [[],[-23],[],[-74],[],[-4],[20],[68],[],[83],[],[73],[],[]]
+
+   //     [null,null,-23,null,-23,null,null,null,68,null,83,null,83,68]
+   //     [null,null,-23,null,-23,null,null,null,68,null,83,null,83,73]
+
+        /*
+        MaxStack ms = new MaxStack();
+        ms.push(-23);
+        System.out.println(ms.peekMax());
+        ms.push(-74);
+        System.out.println(ms.popMax());
+        ms.push(-4);
+        ms.push(20);
+        ms.push(68);
+        System.out.println(ms.top());
+        ms.push(83);
+        System.out.println(ms.peekMax());
+        ms.push(73);
+        System.out.println(ms.popMax());
+        System.out.println(ms.peekMax());
+*/
+
+
+        //         System.out.println(ms.peekMax());
+
+        // System.out.println(ms.popMax());
+        // System.out.println(ms.top());
+        // System.out.println(ms.peekMax());
+        //System.out.println(ms.pop());
+        //System.out.println(ms.top());
+
+/*
+        System.out.println(ms.top());
+        System.out.println(ms.popMax());
+        System.out.println(ms.top());
+        System.out.println(ms.peekMax());
+        System.out.println(ms.pop());
+        System.out.println(ms.top());
+*/
+        // char[] x = {'a','b','b','b','b','b','b','b','b','b','b','b','b'};
+        // char[] x = {'a','a','a','b','b','a','a'};
+        // char[] x = {'a','a','a','a','a','b'};
+
+        //String A = "abcd";
+        //String B = "abcd";
+        // String A = "aaaaaaabc"; String B = "aaaaaaacb";
+       //  LeetCode lc = new LeetCode();
+        // System.out.println(lc.buddyStrings(A, B));
+        // System.out.println(lc.trailingZeroes(5));
+        // System.out.println(lc.toHex(-1));
+
+/*
+        TreeNode one = new TreeNode(1);
+        TreeNode two = new TreeNode(2);
+        TreeNode zero = new TreeNode(0);
+        one.left = zero; one.right = two;
+        TreeNode node = lc.trimBST(one, 1, 2);
+        System.out.println(node.val);
+*/
+
+        // int[] nums = {-10,-3,0,5,9};
+        // TreeNode node = lc.sortedArrayToBST(nums);
+        //System.out.println(node.val);
+
+
+        // [[3,[4,5,8,2]],[3],[5],[10],[9],[4]]
+/*
+        int[] nums = {4,5,8,2};
+        KthLargest kth = new KthLargest(3, nums);
+        System.out.println(kth.add(3));
+        System.out.println(kth.add(5));
+        System.out.println(kth.add(10));
+        System.out.println(kth.add(9));
+        System.out.println(kth.add(4));
+*/
+
+        // String A = "abac";
+        // String B = "abad";
+        // String A = "aaaaaaabc"; String B = "aaaaaaacb";
+        // LeetCode lc = new LeetCode();
+        //System.out.println(lc.buddyStrings(A, B));
+
+        // int[] nums = {1,2,1,2,1};
+
+        //-93
+
+        /*
+        final String dir = System.getProperty("user.dir");
+        System.out.println("current dir = " + dir);
+        Path filePath = Paths.get(dir + "/src/main/java/com/michaelahern/testData.txt");
+        String content = Files.readString(filePath, StandardCharsets.US_ASCII);
+        String[] numbers = content.split(",");
+        int[] nums = new int[numbers.length];
+        for(int i = 0; i < numbers.length; i++)
+            nums[i] = Integer.valueOf(numbers[i]);
+
+        System.out.println("Size: " + nums.length);
+
+        System.out.println(lc.subarraySum( nums , -93));
+
+        LeetCode lc = new LeetCode();
+        TreeNode one = new TreeNode(1);
+        TreeNode two = new TreeNode(2);
+        TreeNode three = new TreeNode(3);
+        TreeNode four = new TreeNode(4);
+        TreeNode five = new TreeNode(5);
+        TreeNode six = new TreeNode(6);
+
+        one.right = two;
+        two.right = five;
+        five.left = four;
+        five.right = six;
+        four.left = three;
+
+        System.out.println(Arrays.toString(lc.rightSideView(one).toArray()));
+*/
+        // int[] nums = {3,2,3,1,2,4,5,5,6};
+        //int[] nums = {-1, 2, 0};
+        //LeetCode lc = new LeetCode();
+        //System.out.println(lc.findKthLargest(nums, 1));
+//        BitShifting bitShifting = new BitShifting();
+//         bitShifting.shiftTests();
+        /*
+        LongestCommonSubsequence lcs = new LongestCommonSubsequence();
+        System.out.println(lcs.lcs( "HPRCFJBD03:H90G?L3>?K8SFQ495G=4R:F7@1;1<", "2F?5ORA0;DB??8K2SSG:BE0:4@8?1NGR?P6;6SMO"));
+
+        int[] one =   {7, 6, 5, 4};
+        int[] two =   {4, 0, 1, 2};
+        int[] three = {2, 5, 0, 4};
+        int[] four =  {4, 1, 4, 2};
+        int[][] matrix = {one, two, three, four};
+
+
+        MatrixPath mp = new MatrixPath();
+        mp.findAllPaths(matrix, 0, 0);
+*/
+
+        // int eggs = 2, m = 3213;
+        // int tries = 3213;
+        // int N = 15;
+        // Faberge eggDrop = new Faberge();
+        // eggDrop.fun2(eggs, 17);
+        /*
+        System.out.println("Minimum floor in worst"
+                + " case with "
+                + eggs + "  eggs and "
+                + N + " floors is " + eggDrop.superEggDropLCOriginal(eggs, N));  // n eggs
+        */
+                // Faberge.preCalc();
+        //        System.out.println(eggDrop.height(BigInteger.valueOf(80000), BigInteger.valueOf(100000)));  // n eggs
+
+
+        /*
+        Immortal Test Cases
+        8, 5, 1, 100
+        8, 8, 0, 100007
+        25, 31, 0, 100007
+        5, 45, 3, 1000007
+        31, 39, 7, 2345
+        545, 435, 342, 1000007
+        28827050410, 35165045587, 7109602, 13719506  
+*/
+        long previous = 0;
+        long current = 0;
+
+        //for(int i = 0; i < 8; i++)
+        //    for(int j = 0; j < 8; j++)
+        //        System.out.println(i + ", " + j + " :: " + Immortal.rangeSum(i, j));
+
+        // current = Immortal.elder_age(10, 10, 0, 10000);
+        // System.out.println("Got: " + current + " Expecting: ?");
+
+        //current = Immortal.elderAge2(10, 10, 1, 100);
+        // System.out.println("\n\nGot: " + current + " Expecting: 5");
+
+        // current = Immortal.elder_age(8, 5, 1, 100);
+        // System.out.println("Got: " + current + " Expecting: 5");
+/*
+        current = Immortal.elderAge(8, 5, 1, 100);
+        System.out.println("Got: " + current + " Expecting: 5");
+
+        current = Immortal.elderAge(8, 8, 0, 100007);
+        System.out.println("Got: " + current + " Expecting: 224");
+
+        current = Immortal.elderAge(25, 25, 0, 100007);
+        System.out.println("Got: " + current + " Expecting: 9096");
+
+        current = Immortal.elderAge(25, 31, 0, 100007);
+        System.out.println("Got: " + current + " Expecting: 11925");
+
+        current = Immortal.elderAge(5, 45, 3, 1000007);
+        System.out.println("Got: " + current + " Expecting: 4323");
+
+        current = Immortal.elderAge(31, 39, 7, 2345);
+        System.out.println("Got: " + current + " Expecting: 1586");
+
+        current = Immortal.elderAge(545, 435, 342, 1000007);
+        System.out.println("Got: " + current + " Expecting: 808451");
+
+        current = Immortal.elderAge(28827050410L, 35165045587L, 7109602, 13719506);
+        System.out.println("Got: " + current + " Expecting: 5456283");
+*/
+/*
+        for(int i = 0; i < 10; i++)
+            for(int j = 0; j < 10; j++) {
+                current = Immortal.elderAge2(i, j, 0, 100);
+                // System.out.println(i + ", " + j + " :: " + current + " :: " + (current - previous));
+                previous = current;
+            }
+ */
+        // System.out.println(Immortal.elderAge2(28827050410l, 35165045587l, 7109602l, 13719506l));
+
+        /*
+        ContiguousArray ca = new ContiguousArray();
+        int[] nums = {0,1,1,0,1,0,
+                      1,1,0,1,0,0,
+                      0,0,1,0,1,1,
+                      1,0,1,0,1,0,0,1,1,0,0,1,
+                      0};
+        int max = ca.longest(nums);
+        System.out.println("Max: " + max);
+
+        String s = "(((((()*)(*)*))())())(()())())))((**)))))(()())()";
+        CheckValidString cvs = new CheckValidString();
+        System.out.println(cvs.checkValidString(s));
+
+
+        // int[][] matrix = {{1,3,5,7}, {10,11,16,20}, {23,30,34,60}};
+        int[][] matrix = {{1}};
+
+        TwoDMatrixSearch search = new TwoDMatrixSearch();
+        System.out.println(search.searchMatrix(matrix, 0));
+
+
+        CoinChange coinChange = new CoinChange();
+        int[] coins = {186,419,83,408};
+        System.out.println(coinChange.coinChange(coins, 6249));
+        System.out.println(coinChange.coinChange2(coins, 6249));
+        System.out.println(coinChange.coinChange3(coins, 6249));
+
+
+        FindItinerary fi = new FindItinerary();
+        String[][] tick1 = {{"MUC","LHR"}, {"JFK","MUC"}, {"SFO","SJC"}, {"LHR","SFO"}};
+        List<List<String>> tickets = new ArrayList<>();
+        for(String[] y : tick1) {
+            List<String> l = new ArrayList<>();
+            for(String s : y)
+                l.add(s);
+
+            tickets.add(l);
+        }
+        List<String> list = fi.findItinerary(tickets);
+        System.out.println(Arrays.toString(list.toArray()));
+
+
+
+        PartitionLabels pl = new PartitionLabels();
+        pl.partitionLabels("ababcbacadefegdehijhklij");
+
+        TwoSumLessThanK tslk = new TwoSumLessThanK();
+
+        int[] nums = {4,5,6,7,0,1,2};
+
+        System.out.println(tslk.twoSumLessThanK(nums, 6));
+
+        int[] nums = { [5,7,11,13]};
+        RotatedSortedArray rsa = new RotatedSortedArray();
+        System.out.println(rsa.search(nums, 1));
+
+
+        MissingNumber mn = new MissingNumber();
+        int[] nums = {15,13,12};
+        System.out.println(mn.missingNumber(nums));
+
+
+        DeleteNodes dl = new DeleteNodes();
+        TreeNode one = new TreeNode(1);
+        TreeNode two = new TreeNode(2);
+        TreeNode three = new TreeNode(3);
+        TreeNode four = new TreeNode(4);
+        TreeNode five = new TreeNode(5);
+        TreeNode six = new TreeNode(6);
+        TreeNode seven = new TreeNode(7);
+
+        one.left = two;
+        one.right = three;
+        two.left = four; two.right = five;
+        three.left = six; three.right = seven;
+        int[] to_delete = {3, 5};
+        List<TreeNode> answer = dl.delNodes(one, to_delete);
+        for(TreeNode node : answer) {
+            System.out.print("[");
+            printNode(node);
+            System.out.print("], ");
+        }
+        System.out.print("\n\n");
+
+
+        ReorganizeString reorg = new ReorganizeString();
+        System.out.println(reorg.reorganizeString("zzzcccrrraaabbb"));
+
+
+        int nums[] = {1,3,5};
+        NumArray na = new NumArray(nums);
+        System.out.println(na.sumRange(0,2));
+        na.update(1,2);
+        System.out.println(na.sumRange(0,2));
+
+        int nums[] = {9,-8};
+        NumArray na = new NumArray(nums);
+        na.update(0,3);
+        System.out.println(na.sumRange(1,1));
+        System.out.println(na.sumRange(0,1));
+        na.update(1,-3);
+        System.out.println(na.sumRange(0,1));
+
+
+
+        //int nums[] = {0,9,5,7,3};
+        int nums[] = {1,3,5};
+        NumArray na = new NumArray(nums);
+        System.out.println(na.prefixSum(1));
+        System.out.println(na.prefixSum(2));
+        System.out.println(na.prefixSum(3));
+
+        System.out.println(na.sumRange(0,2));
+        na.update(1,2);
+        System.out.println(na.sumRange(0,2));
+        System.out.println(na.sumRange(3,3));
+        na.update(4,5);
+        na.update(1,7);
+        na.update(0,8);
+
+        System.out.println(na.sumRange(1,2));
+        na.update(1,9);
+
+        System.out.println(na.sumRange(4,4));
+        na.update(3,4);
+*/
+    NextGreaterElement nge = new NextGreaterElement();
+    System.out.println(nge.nextGreaterElement(123851));
 
     }
+
+    private static void printNode(TreeNode node) {
+        if(node == null) return;
+        System.out.print(node.val); System.out.print(",");
+        printNode(node.left); printNode(node.right);
+    }
+
+
 }

@@ -26,6 +26,7 @@ class MyHashMap {
         if(slotList == null) {
             slotList = new ArrayList<Integer[]>();
             slotList.add(obj);
+            array[hashCode] = slotList;
         } else {
             boolean found = false;
             for(int i = 0; i < slotList.size(); i++) {
