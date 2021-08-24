@@ -1576,9 +1576,47 @@ for(String s : tests) {
 
         System.out.println(na.sumRange(4,4));
         na.update(3,4);
+
+        NextGreaterElement nge = new NextGreaterElement();
+        System.out.println(nge.nextGreaterElement(123851));
+
+        // int citations[] = {1,3,1};  // [1,3,1]
+        int citations[] = {3,0,6,1,5};
+        HIndex hi = new HIndex();
+        System.out.println(hi.hIndex(citations));
+
+        FindItinerary fi = new FindItinerary();
+        // String[][] tick1 = {{"MUC","LHR"}, {"JFK","MUC"}, {"SFO","SJC"}, {"LHR","SFO"}};
+        String[][] tick1 = {{"JFK","SFO"}, {"JFK","ATL"}, {"SFO","ATL"}, {"ATL","JFK"}, {"ATL","SFO"}};
+
+        List<List<String>> tickets = new ArrayList<>();
+        for(String[] y : tick1) {
+            List<String> l = new ArrayList<>();
+            for(String s : y)
+                l.add(s);
+
+            tickets.add(l);
+        }
+        List<String> list = fi.findItinerary(tickets);
+        System.out.println(Arrays.toString(list.toArray()));
 */
-    NextGreaterElement nge = new NextGreaterElement();
-    System.out.println(nge.nextGreaterElement(123851));
+        // int[] arr = {9,4,2,1,3};
+        int[] arr = {4,2,1,3};
+
+        ListNode head;
+        ListNode next = new ListNode(arr[0], null);
+        head = next;
+        for(int i = 1; i < arr.length; i++) {
+            next.next = new ListNode(arr[i], null);
+            next = next.next;
+        }
+
+        SortList sl = new SortList();
+        ListNode answer = sl.sortList(head);
+        while(answer.next != null) {
+            System.out.print(answer.val + ", ");
+            answer = answer.next;
+        }
 
     }
 
