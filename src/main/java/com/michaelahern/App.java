@@ -1,5 +1,7 @@
 package com.michaelahern;
 
+import com.michaelahern.tsp.IsRobotBounded;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1599,9 +1601,11 @@ for(String s : tests) {
         }
         List<String> list = fi.findItinerary(tickets);
         System.out.println(Arrays.toString(list.toArray()));
-*/
+
         // int[] arr = {9,4,2,1,3};
-        int[] arr = {4,2,1,3};
+        int[] arr = {4,19,14,5,-3,1,8,5,11,15};
+        // int[] arr = {-1,5,3,4,0};
+        // int[] arr = {4,2,1,3};
 
         ListNode head;
         ListNode next = new ListNode(arr[0], null);
@@ -1613,18 +1617,166 @@ for(String s : tests) {
 
         SortList sl = new SortList();
         ListNode answer = sl.sortList(head);
-        while(answer.next != null) {
+        while(answer != null) {
             System.out.print(answer.val + ", ");
             answer = answer.next;
         }
+        System.out.println("\n");
+
+
+        FindCheapestFlights fcf = new FindCheapestFlights();
+        // Input: n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1
+        // int[][] flights = {{0,1,100}, {1,2,100}, {0,2,500}};
+        // int[][] flights = {{0,12,28},{5,6,39},{8,6,59},{13,15,7},{13,12,38},{10,12,35},{15,3,23},{7,11,26},{9,4,65},{10,2,38},{4,7,7},{14,15,31},{2,12,44},{8,10,34},{13,6,29},{5,14,89},{11,16,13},{7,3,46},{10,15,19},{12,4,58},{13,16,11},{16,4,76},{2,0,12},{15,0,22},{16,12,13},{7,1,29},{7,14,100},{16,1,14},{9,6,74},{11,1,73},{2,11,60},{10,11,85},{2,5,49},{3,4,17},{4,9,77},{16,3,47},{15,6,78},{14,1,90},{10,5,95},{1,11,30},{11,0,37},{10,4,86},{0,8,57},{6,14,68},{16,8,3},{13,0,65},{2,13,6},{5,13,5},{8,11,31},{6,10,20},{6,2,33},{9,1,3},{14,9,58},{12,3,19},{11,2,74},{12,14,48},{16,11,100},{3,12,38},{12,13,77},{10,9,99},{15,13,98},{15,12,71},{1,4,28},{7,0,83},{3,5,100},{8,9,14},{15,11,57},{3,6,65},{1,3,45},{14,7,74},{2,10,39},{4,8,73},{13,5,77},{10,0,43},{12,9,92},{8,2,26},{1,7,7},{9,12,10},{13,11,64},{8,13,80},{6,12,74},{9,7,35},{0,15,48},{3,7,87},{16,9,42},{5,16,64},{4,5,65},{15,14,70},{12,0,13},{16,14,52},{3,10,80},{14,11,85},{15,2,77},{4,11,19},{2,7,49},{10,7,78},{14,6,84},{13,7,50},{11,6,75},{5,10,46},{13,8,43},{9,10,49},{7,12,64},{0,10,76},{5,9,77},{8,3,28},{11,9,28},{12,16,87},{12,6,24},{9,15,94},{5,7,77},{4,10,18},{7,2,11},{9,5,41}};
+
+
+        // int[][] flights = {{4,1,1}, {1,2,3}, {0,3,2}, {0,4,10}, {3,1,1}, {1,4,3}};
+        // System.out.println(fcf.findCheapestPrice(4, flights, 0, 3, 1 ));
+        // int[][] flights = {{1,2,10}, {2,0,7}, {1,3,8}, {4,0,10}, {3,4,2}, {4,2,10}, {0,3,3}, {3,1,6}, {2,4,5}};
+        int[][] flights = {{0,1,1}, {0,2,5}, {1,2,1}, {2,3,1}};
+        System.out.println(fcf.findCheapestPrice(4, flights, 0, 3, 1 ));
+
+        // System.out.println(fcf.findCheapestPrice(17, flights, 13, 4, 13 ));
+        //int[][] flights = {{0,1,5}, {1,2,5}, {0,3,2}, {3,1,2}, {1,4,1}, {4,2,1}};
+        //System.out.println(fcf.findCheapestPrice(5, flights, 0, 2, 2 ));
+
+
+        TreeNode three = new TreeNode(3);
+        TreeNode nine = new TreeNode(9);
+        TreeNode twenty = new TreeNode(20);
+        TreeNode fifteen = new TreeNode(15);
+        TreeNode seven = new TreeNode(7);
+
+        three.left = nine;
+        three.right = twenty;
+        twenty.left = fifteen;
+        twenty.right = seven;
+
+        LevelOrder lo = new LevelOrder();
+        List<List<Integer>> answer = lo.levelOrder(three);
+        for(List<Integer> row : answer) {
+            System.out.println(Arrays.toString(row.toArray()));
+        }
+
+        int[][] tests = {{1,1,-1,-2},{1,-2,-2,-2}, {5,10,-5}, {8,-8}, {10,2,-5}, {-2,-1,1,2}, {-2,-2,1,-1}};
+        // int[] test = {5,10,-5};
+        // int[] test = {8,-8};
+        AsteroidCollision ac = new AsteroidCollision();
+
+        //int[] test = {10,2,-5};
+        //int[] answer = ac.asteroidCollision(test);
+        //System.out.println(Arrays.toString(answer));
+        // int[] test = {-2,-1,1,2};
+
+        for(int[] test : tests) {
+            int[] answer = ac.asteroidCollision(test);
+            System.out.println(Arrays.toString(answer));
+        }
+
+        ValidateIPAddress vip = new ValidateIPAddress();
+        System.out.println(vip.validIPAddress("172.16.204.1"));
+
+        RestoreIPAddress rip = new RestoreIPAddress();
+        String s = "25525511135";
+        List<String> list = rip.restoreIpAddress(s);
+        for(String a:list)
+            System.out.println(a);
+
+        RemoveDuplicateLetters rdl = new RemoveDuplicateLetters();
+        System.out.println(rdl.removeDuplicateLetters("cbacdcbc"));
+
+
+        //int[] nums = {2,6,4,8,10,9,15};
+        // int[] nums = {1,2,3,4};
+        //int[] nums = {2,1};
+        //int[] nums = {2,3,3,2,4};
+        // int[] nums = {1, 2};
+        // int[] nums = {1,3,2,2,2};
+        int[] nums = {1,5,2,2,2,3,4};
+        // int[] nums = {1,1,1,1,1,1,1,1,1};
+        // int[] nums = {1,3,2};
+
+        //int[] nums = {1,2,3,5,4};
+        FindUnsortedSubarray fusa = new FindUnsortedSubarray();
+        System.out.println(fusa.findUnsortedSubarray(nums));
+
+
+        // int[][] events = {{1,2}, {1,2}, {3,3}, {1,5}, {1,5}};
+        int[][] events = {{1,4}, {4,4}, {2,2}, {3,4}, {1,1}};
+        MaxEvents me = new MaxEvents();
+        System.out.println(me.maxEvents(events));
+
+
+
+
+        OrangesRotting or = new OrangesRotting();
+        int[][] oranges = {{2,1,1}, {1,1,0}, {0,1,1}};
+        System.out.println(or.orangesRotting(oranges));
+
+        AmazonAssessment aa = new AmazonAssessment();
+        int[] list = {1, 1, 2, 4, 5, 5};
+        List<Integer> myList = new ArrayList<>();
+        for(int i : list)
+            myList.add(i);
+        System.out.println(AmazonAssessment.countMaximumTeams(myList,  3, 2));
+
+
+        int[] list = {1, 2, 3};
+        List<Integer> myList = new ArrayList<>();
+        for(int i : list)
+            myList.add(i);
+
+        SubSets.getTotalImbalance(myList);
+
+        int[] list = {1, 3, 2};
+        List<Integer> myList = new ArrayList<>();
+        for(int i : list)
+            myList.add(i);
+
+        System.out.println(SubSets.getTotalImbalance(myList));
+
+        ScoreOfParentheses sop = new ScoreOfParentheses();
+        System.out.println(sop.scoreOfParentheses("(()(()))"));
+
+
+
+        int n = 6; int[][] edges = {{3,0}, {3,1}, {3,2}, {3,4}, {5,4}};
+        MinimumHeightTree mht = new MinimumHeightTree();
+        System.out.println(mht.findMinHeightTrees(n, edges));
+
+        String instructions = "GG";
+        IsRobotBounded irb = new IsRobotBounded();
+        System.out.println(irb.isRobotBounded(instructions));
+        */
+
+        int[] list = {1,2,3,4,5};
+        ListNode one   = new ListNode(1);
+        ListNode two   = new ListNode(2);
+        ListNode three = new ListNode(3);
+        ListNode four  = new ListNode(4);
+        ListNode five  = new ListNode(5);
+        one.next = two;
+        two.next = three;
+        three.next = four;
+        four.next = five;
+
+
+        /*
+        RemoveNthNode rnn = new RemoveNthNode();
+        ListNode result = rnn.removeNthFromEnd(one, 2);
+        while(result != null) {
+            System.out.println(result.val);
+            result = result.next;
+        }
+        */
+
+
+        ReverseBetween rb = new ReverseBetween();
+        ListNode result = rb.reverseBetween(one, 2, 4);
+        while(result != null) {
+            System.out.println(result.val);
+            result = result.next;
+        }
 
     }
-
-    private static void printNode(TreeNode node) {
-        if(node == null) return;
-        System.out.print(node.val); System.out.print(",");
-        printNode(node.left); printNode(node.right);
-    }
-
-
 }

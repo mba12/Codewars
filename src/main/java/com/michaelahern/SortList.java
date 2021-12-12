@@ -14,7 +14,7 @@ public class SortList {
     public ListNode sortList(ListNode head) {
 
         ListNode list = head;
-        if(head == null) return head;
+        if(head == null || head.next == null) return head;
 
         int count = -1;
         while(list != null) {
@@ -22,8 +22,8 @@ public class SortList {
             list = list.next;
         }
         list = head;
-
-        ListNode[] pointers = new ListNode[++count];
+        count++;
+        ListNode[] pointers = new ListNode[count];
         int idx = 0;
         while(list != null && idx < count) {
             pointers[idx] = list;
@@ -32,79 +32,31 @@ public class SortList {
             idx++;
         }
 
-
         ListNode[] test = helper(pointers);
         while(test.length >= 2) {
             test = helper(test);
         }
 
         return test[0];
-
     }
 
     public ListNode[] helper(ListNode[] pointers) {
-        ListNode[] halfList = new ListNode[pointers.length / 2];
-        ListNode[] head = new ListNode[pointers.length / 2];
-        boolean oddNumber = pointers.length % 2 == 1;
-        for(int i = 0, j = 0; i < pointers.length - 1; i = i + 2, j++) {
 
-            head[j] = helper2(pointers[i], pointers[i + 1]);
-            ListNode test = head[j];
-            System.out.print("J " + j + ": ");
-            while(test.next != null) {
-                System.out.print(test.val + ", ");
-                test = test.next;
-            }
-            System.out.print("\n"  );
-            /*
-            while(pointers[i] != null && pointers[i + 1] != null) {
-                if(pointers[i].val < pointers[i + 1].val) {
-                    if(halfList[j] == null) {
-                        halfList[j] = pointers[i];
-                        head[j] = halfList[j];
-                    } else {
-                        halfList[j].next = pointers[i];
-                        halfList[j] = halfList[j].next;
-                    }
-                    pointers[i] = pointers[i].next;
-                } else {
-                    if(halfList[j] == null) {
-                        halfList[j] = pointers[i + 1];
-                        head[j] = halfList[j];
-                    } else {
-                        halfList[j].next = pointers[i + 1];
-                        halfList[j] = halfList[j].next;
-                    }
-                    pointers[i + 1] = pointers[i + 1].next;
-                }
-            }
-            while(pointers[i] != null) {
-                if(halfList[j] == null) {
-                    halfList[j] = pointers[i];
-                } else {
-                    halfList[j].next = pointers[i];
-                    halfList[j] = halfList[j].next;
-                }
-                pointers[i] = pointers[i].next;
-            }
-            while(pointers[i + 1] != null) {
-                if(halfList[j] == null) {
-                    halfList[j] = pointers[i + 1];
-                } else {
-                    halfList[j].next = pointers[i + 1];
-                    halfList[j] = halfList[j].next;
-                }
-                pointers[i + 1] = pointers[i + 1].next;
-            }
-
-             */
-            if(oddNumber && i < pointers.length - 3) {
-                head[j] = helper2(head[j], pointers[i + 2]);
-            }
+        int length;
+        if(pointers.length % 2 == 1) {
+            int len = pointers.length - 1;
+            pointers[len - 1] = helper2(pointers[len - 1], pointers[len]);
+            length = pointers.length - 2;
+        } else {
+            length = pointers.length - 1;
         }
 
-        return head;
+        ListNode[] head = new ListNode[pointers.length / 2];
 
+        for(int i = 0, j = 0; i < length; i = i + 2, j++) {
+            head[j] = helper2(pointers[i], pointers[i + 1]);
+        }
+        return head;
     }
 
     private ListNode helper2(ListNode one, ListNode two) {
