@@ -1747,7 +1747,6 @@ for(String s : tests) {
         String instructions = "GG";
         IsRobotBounded irb = new IsRobotBounded();
         System.out.println(irb.isRobotBounded(instructions));
-        */
 
         int[] list = {1,2,3,4,5};
         ListNode one   = new ListNode(1);
@@ -1761,14 +1760,12 @@ for(String s : tests) {
         four.next = five;
 
 
-        /*
         RemoveNthNode rnn = new RemoveNthNode();
         ListNode result = rnn.removeNthFromEnd(one, 2);
         while(result != null) {
             System.out.println(result.val);
             result = result.next;
         }
-        */
 
 
         ReverseBetween rb = new ReverseBetween();
@@ -1777,6 +1774,103 @@ for(String s : tests) {
             System.out.println(result.val);
             result = result.next;
         }
+
+
+        // int[][] board = {{110,5,112,113,114},{210,211,5,213,214},{310,311,3,313,314},{410,411,412,5,414},{5,1,512,3,3},{610,4,1,613,614},{710,1,2,713,714},{810,1,2,1,1},{1,1,2,2,2},{4,1,4,4,1014}};
+        //int[][] board = {{1,3,5,5,2},{3,4,3,3,1},{3,2,4,5,2},{2,4,4,5,5},{1,4,4,1,1}};
+        int[][] board = {{2,1,3},{2,2,3},{2,3,3}};
+
+        for (int[] row : board)
+            System.out.println(Arrays.toString(row));
+        CandyCrush cc = new CandyCrush();
+        int[][] zeroes = cc.candyCrush(board);
+        System.out.println("***********************");
+        for (int[] row : zeroes)
+            System.out.println(Arrays.toString(row));
+
+        System.out.println("***********************");
+
+        for (int[] row : board)
+            System.out.println(Arrays.toString(row));
+
+
+
+
+        TreeNode root = new TreeNode(1);
+        TreeNode gen1Left = new TreeNode(0);
+        TreeNode gen1Right = new TreeNode(1);
+        root.left = gen1Left; root.right = gen1Right;
+
+        TreeNode gen2LLeft = new TreeNode(0);
+        TreeNode gen2LRight = new TreeNode(0);
+        gen1Left.left = gen2LLeft;
+        gen1Left.right = gen2LRight;
+
+        TreeNode gen2RLeft = new TreeNode(0);
+        TreeNode gen2RRight = new TreeNode(0);
+        gen1Right.left = gen2RLeft;
+        gen1Right.right = gen2RRight;
+
+        PruneTree pt = new PruneTree();
+        TreeNode answer = pt.pruneTree(root);
+        if(answer.equals(root)) System.out.println("Worked"); else System.out.println("Failed");
+
+
+
+        ListNode one   = new ListNode(1);
+        ListNode two   = new ListNode(2);
+        ListNode three_a = new ListNode(3);
+        ListNode three_b = new ListNode(3);
+        ListNode four_a  = new ListNode(4);
+        ListNode four_b  = new ListNode(4);
+        ListNode five  = new ListNode(5);
+
+        one.next = two;
+        two.next = three_a;
+        three_a.next = three_b;
+        three_b.next = four_a;
+        four_a.next = four_b;
+        four_b.next = five;
+
+        DeleteDuplicates dd = new DeleteDuplicates();
+        ListNode node = dd.deleteDuplicates(one);
+
+        while(node != null) {
+            System.out.println(node.val);
+            node = node.next;
+        }
+
+        int[] nums = {20,100,10,12,5,13};
+        IncreasingTriplet it = new IncreasingTriplet();
+        System.out.println(it.increasingTriplet(nums));
+*/
+
+        Node zero = new Node(1);
+        Node two = new Node(1);
+        Node four = new Node(1);
+        Node five = new Node(1);
+
+        zero.random = four;
+        zero.left = null;
+        zero.right = two;
+
+        two.random = zero;
+        two.left = null;
+        two.right = four;
+
+        four.random = five;
+        four.left = five;
+        four.right = null;
+
+        five.random = five;
+        five.left = null;
+        five.right = null;
+
+        CopyRandomBinaryTree cbt = new CopyRandomBinaryTree();
+        NodeCopy copy = cbt.copyRandomBinaryTree(zero);
+        System.out.println(copy.val);
+
+
 
     }
 }
