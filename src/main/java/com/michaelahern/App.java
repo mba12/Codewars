@@ -1843,7 +1843,7 @@ for(String s : tests) {
         int[] nums = {20,100,10,12,5,13};
         IncreasingTriplet it = new IncreasingTriplet();
         System.out.println(it.increasingTriplet(nums));
-*/
+
 
         Node zero = new Node(1);
         Node two = new Node(1);
@@ -1870,7 +1870,42 @@ for(String s : tests) {
         NodeCopy copy = cbt.copyRandomBinaryTree(zero);
         System.out.println(copy.val);
 
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+       // ListNode three = new ListNode(3);
+       // ListNode four = new ListNode(4);
+       // ListNode five = new ListNode(5);
 
+        one.next = two;
+        two.next = null;
+        //three.next = four;
+        //four.next = five;
+
+        SwapPairs sp = new SwapPairs();
+        ListNode answer = sp.swapPairs(one);
+        while(answer != null) {
+            System.out.println(answer.val);
+            answer = answer.next;
+        }
+
+        OrangesRotting or = new OrangesRotting();
+        int[][] oranges = {{2,1,1}, {1,1,0}, {0,1,1}};
+        System.out.println(or.orangesRotting(oranges));
+
+
+        int[] arr = {1,1,1,1,1,1,1,1};
+        MinSubArrayLen msal = new MinSubArrayLen();
+        System.out.println(msal.minSubArrayLen(11, arr));
+*/
+        // int[][] intervals = {{1,2}, {2,3}, {3,4}, {1,3}};
+        // int[][] intervals = {{-52,31},{-73,-26},{82,97},{-65,-11},{-62,-49},{95,99},{58,95},{-31,49},{66,98},{-63,2},{30,47},{-40,-26}};
+        // int[][] intervals = {{81,97},{-71,60},{36,97},{76,96},{59,68},{54,88},{-65,40},{83,84},{27,50},{-59,-50},{73,78},{50,57},{-49,81},{-16,90},{-83,-23},{-58,98},{78,99},{-57,81},{-2,85},{-88,45},{85,90},{-64,17},{76,78},{-17,5},{-98,15},{86,100}};
+
+        // int[][] intervals = {{40,70},{56,80},{63,87},{-51,39},{-74,59},{38,41},{-49,17},{6,57},{36,85},{-73,26},{-6,70},{15,70},{66,78},{37,87},{79,96},{46,97},{36,49},{-58,40},{-58,52},{26,83},{-27,43},{15,86},{11,56},{23,34},{-9,73},{-95,-75},{2,30},{-91,26},{88,89},{-83,-43}};
+        int[][] intervals = {{-18220,40982},{-43960,-31024},{18797,43662},{2956,18609},{38243,45048},{12746,28757},{-10891,25995},{-49241,9617},{-7857,47361},{-7080,3852},{-24115,-20686},{7384,35669},{-17668,9643},{-29204,28182},{-26068,16726},{-9918,40568},{20196,46770},{21444,30271},{-6582,13139},{19625,34542},{17296,37476},{-47455,2733},{-35828,49833},{-13670,20344},{43770,46295},{-4070,42565},{22846,31837},{35922,46461},{-30714,44139},{-23353,27616},{-10784,-7119},{12179,34858},{-3338,30912},{-48584,35903},{-19769,6933},{34756,49968},{48150,48483},{46243,47847},{-49351,-35146},{47887,49147},{46478,48541},{-39737,21549},{14699,43684},{44023,47003},{20839,31554},{-41111,-39222},{-10723,31352},{-34931,49578},{-28414,-28003},{41718,44610},{-11812,1017},{-13705,11296},{-14942,37221},{-17247,47354},{7472,25442},{34972,43200},{-11203,14545},{44835,49996}};
+
+        EraseOverlapIntervals eoi = new EraseOverlapIntervals();
+        System.out.println(eoi.eraseOverlapIntervals(intervals));
 
     }
 }
