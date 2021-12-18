@@ -1896,7 +1896,7 @@ for(String s : tests) {
         int[] arr = {1,1,1,1,1,1,1,1};
         MinSubArrayLen msal = new MinSubArrayLen();
         System.out.println(msal.minSubArrayLen(11, arr));
-*/
+
         // int[][] intervals = {{1,2}, {2,3}, {3,4}, {1,3}};
         // int[][] intervals = {{-52,31},{-73,-26},{82,97},{-65,-11},{-62,-49},{95,99},{58,95},{-31,49},{66,98},{-63,2},{30,47},{-40,-26}};
         // int[][] intervals = {{81,97},{-71,60},{36,97},{76,96},{59,68},{54,88},{-65,40},{83,84},{27,50},{-59,-50},{73,78},{50,57},{-49,81},{-16,90},{-83,-23},{-58,98},{78,99},{-57,81},{-2,85},{-88,45},{85,90},{-64,17},{76,78},{-17,5},{-98,15},{86,100}};
@@ -1906,6 +1906,28 @@ for(String s : tests) {
 
         EraseOverlapIntervals eoi = new EraseOverlapIntervals();
         System.out.println(eoi.eraseOverlapIntervals(intervals));
+
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+        ListNode three = new ListNode(3);
+        ListNode four = new ListNode(4);
+        ListNode five = new ListNode(5);
+        ListNode seven = new ListNode(7);
+
+        two.next = seven; seven.next = four; four.next = three; three.next = five;
+        NextLargerNodes nln = new NextLargerNodes();
+        int[] answer = nln.nextLargerNodes(two);
+        System.out.println(Arrays.toString(answer));
+
+*/
+        // int[][] map = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
+        // int[][] map = {{1,1},{1,1},{1,1}};
+        //int[][] map = {{10,10,10},{10,1,10},{10,10,10}};
+        int[][] map = {{1,2,3},{8,9,4},{7,6,5}};
+        PacificAtlantic pa = new PacificAtlantic();
+        List<List<Integer>> answer = pa.pacificAtlantic(map);
+        for(List<Integer> l : answer)
+            System.out.println(Arrays.toString(l.toArray()));
 
     }
 }
