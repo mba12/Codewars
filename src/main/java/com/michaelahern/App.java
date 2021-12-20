@@ -1914,20 +1914,31 @@ for(String s : tests) {
         ListNode five = new ListNode(5);
         ListNode seven = new ListNode(7);
 
-        two.next = seven; seven.next = four; four.next = three; three.next = five;
+        two.next = seven; sReven.next = four; four.next = three; three.next = five;
         NextLargerNodes nln = new NextLargerNodes();
         int[] answer = nln.nextLargerNodes(two);
         System.out.println(Arrays.toString(answer));
 
+
+        BinarySearch bs = new BinarySearch();
+        int[] list = {5};
+        System.out.println(bs.search(list, 5));
 */
+        int[] list = {0,1,0,3,12};
+        MoveZeros mz = new MoveZeros();
+        mz.moveZeroes(list);
+        System.out.println(Arrays.toString(list));
+
+
         // int[][] map = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
         // int[][] map = {{1,1},{1,1},{1,1}};
         //int[][] map = {{10,10,10},{10,1,10},{10,10,10}};
+        /*
         int[][] map = {{1,2,3},{8,9,4},{7,6,5}};
         PacificAtlantic pa = new PacificAtlantic();
         List<List<Integer>> answer = pa.pacificAtlantic(map);
         for(List<Integer> l : answer)
             System.out.println(Arrays.toString(l.toArray()));
-
+*/
     }
 }
