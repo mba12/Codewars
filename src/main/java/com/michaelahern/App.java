@@ -1923,12 +1923,18 @@ for(String s : tests) {
         BinarySearch bs = new BinarySearch();
         int[] list = {5};
         System.out.println(bs.search(list, 5));
-*/
+
         int[] list = {0,1,0,3,12};
         MoveZeros mz = new MoveZeros();
         mz.moveZeroes(list);
         System.out.println(Arrays.toString(list));
 
+        LengthOfLongestSubstring llss = new LengthOfLongestSubstring();
+        System.out.println(llss.lengthOfLongestSubstring("abcabcbb"));
+*/
+        CheckInclusion ci = new CheckInclusion();
+        System.out.println(ci.checkInclusion("hello",
+                "ooolleoooleh"));
 
         // int[][] map = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
         // int[][] map = {{1,1},{1,1},{1,1}};
