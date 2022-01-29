@@ -5,7 +5,11 @@ import com.michaelahern.tsp.IsRobotBounded;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Hello world!
@@ -1987,7 +1991,7 @@ for(String s : tests) {
 
         MinimumTotal minimumTotal = new MinimumTotal();
         System.out.println(minimumTotal.minimumTotal(master));
-*/
+
         // int[][] map = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
         // int[][] map = {{1,1},{1,1},{1,1}};
         //int[][] map = {{10,10,10},{10,1,10},{10,10,10}};
@@ -2024,17 +2028,100 @@ for(String s : tests) {
         // int[] nums = {1,1,1,2,4,5,5,5,6};
         int[] nums = {2,2,3,3,3,4};
         System.out.println(dae.deleteAndEarn(nums));
-*/
+
         //HouseRobber hr = new HouseRobber();
-        int[] nums = {5,9,3,2,1,0,2,3,3,1,0,0};
+        // int[] nums = {5,9,3,2,1,0,2,3,3,1,0,0};
            // System.out.println(hr.rob(nums));
 
         //HouseRobberII hr2 = new HouseRobberII();
         //System.out.println(hr2.rob(nums));
 
-        JumpGame jg = new JumpGame();
-        System.out.println(jg.canJump(nums));
+        // JumpGame jg = new JumpGame();
+        // System.out.println(jg.canJump(nums));
+
+        int[] nums = {1,2,3,4};
+        ProductExceptSelf pes = new ProductExceptSelf();
+        System.out.println(Arrays.toString(pes.productExceptSelf(nums)));
+
+        CBTInserter cbtInserter = new CBTInserter(new TreeNode(1));
+        System.out.println(cbtInserter.insert(2));
+        System.out.println(cbtInserter.insert(3));
+        System.out.println(cbtInserter.insert(4));
+        System.out.println(cbtInserter.insert(5));
 
 
+        DeleteNode dn = new DeleteNode();
+        TreeNode root = dn.deleteNode(three, 1);
+        System.out.println(root.val);
+
+
+
+        TreeNode one = new TreeNode(1);
+        TreeNode minusOne = new TreeNode(-1);
+
+        TreeNode oneB = new TreeNode(1);
+
+        TreeNode five = new TreeNode(5);
+        TreeNode three = new TreeNode(3);
+        TreeNode six = new TreeNode(6);
+        TreeNode two = new TreeNode(2);
+
+
+        TreeNode four = new TreeNode(4);
+        TreeNode seven = new TreeNode(7);
+        TreeNode eight = new TreeNode(8);
+        TreeNode ten = new TreeNode(10);
+        TreeNode minusThree = new TreeNode(-3);
+        TreeNode eleven = new TreeNode(11);
+        TreeNode minusTwo = new TreeNode(-2);
+        TreeNode minusTwoB = new TreeNode(-2);
+
+        TreeNode three_a = new TreeNode(3);
+
+        ten.left = five;
+        ten.right = minusThree;
+        five.left = three;
+        five.right = two;
+        minusThree.right = eleven;
+        three.left = three_a;
+        three.right = minusTwo;
+        two.right = one;
+
+        one.right = two; two.right = three; three.right = four; four.right = five;
+
+
+        one.left = minusTwo;
+        one.right = minusThree;
+        minusTwo.left = oneB;
+        minusTwo.right = three;
+        oneB.left = minusOne;
+
+        minusThree.left = minusTwoB;
+
+
+        PathSumIII pathSumIII = new PathSumIII();
+        int answer = pathSumIII.pathSum(one, 3);
+        System.out.println(answer);
+
+        SortedArrayToBST sortedArrayToBST = new SortedArrayToBST();
+        int[] nums = {-1,0,1,2};
+        TreeNode root = sortedArrayToBST.sortedArrayToBST(nums);
+        System.out.println(root.val);
+*/
+        ArrayToTree tree = new ArrayToTree();
+        int[] nums = {2,2,5,Integer.MAX_VALUE,Integer.MAX_VALUE,5,7};
+        TreeNode root = tree.arrayToTree(nums);
+        System.out.println(root.val);
+
+        Tree2Array2 t2a = new Tree2Array2();
+        Map<Integer, Integer> map = t2a.inorderTraversal(root);
+        Set<Integer> set = map.keySet();
+        List<Integer> list = new ArrayList<>(set);
+        Collections.sort(list);
+        List<Integer> answer = new ArrayList<>();
+        for(int i : list)
+            answer.add(map.get(i));
+        // t2a.tree2array(root);
+        System.out.println(Arrays.toString(answer.toArray()));
     }
 }

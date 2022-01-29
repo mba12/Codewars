@@ -7,6 +7,24 @@ public class Jump {
 
     public int jump(int[] nums) {
 
+        int result = 0;
+        int left = 0, right = 0;
+        int max = 0;
+        while(right < nums.length - 1) {
+            max = 0;
+            for(int i = left; i < right + 1; i++)
+                max = Math.max(max, i + nums[i]);
+
+            left = right + 1;
+            right = max;
+            result += 1;
+        }
+        return result;
+    }
+
+/*
+        public int jump(int[] nums) {
+
         int v = nums.length;
 
         // Adjacency list for storing which vertices are connected
@@ -82,5 +100,7 @@ public class Jump {
         }
         return false;
     }
+
+ */
 }
 
