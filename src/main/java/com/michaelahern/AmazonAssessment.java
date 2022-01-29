@@ -4,6 +4,10 @@ import java.util.*;
 
 public class AmazonAssessment {
 
+    /*
+    You are given an array of integers that represent the "skill" of each developer in your company. You are also given a stipulation that no team has a delta between the most and least skilled member greater than maxDiff. How many teams of size teamSize can you make given the int list given?
+
+     */
     public static int countMaximumTeams(List<Integer> skill, int teamSize, int maxDiff) {
 
         Collections.sort(skill);
